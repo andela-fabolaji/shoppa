@@ -1,0 +1,21 @@
+{
+  "name": "shoppa",
+  "description": "Simple store frontend using angular",
+  "main": "index.js",
+  "authors": [
+    "Femi Abolaji <femi.systems@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/andela-fabolaji/shoppa",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "v4.0.0-alpha.6",
+    "angular": "1.6.7"
+  }
+}

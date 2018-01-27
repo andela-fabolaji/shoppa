@@ -1,0 +1,26 @@
+{
+  "name": "shoppa",
+  "version": "1.0.0",
+  "description": "Simple store frontend using angular",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "bower install",
+    "prestart": "npm install",
+    "start": "http-server -a localhost -p 8000 app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andela-fabolaji/shoppa.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andela-fabolaji/shoppa/issues"
+  },
+  "homepage": "https://github.com/andela-fabolaji/shoppa#readme",
+  "devDependencies": {
+    "bower": "^1.8.2",
+    "http-server": "^0.11.1"
+  }
+}
