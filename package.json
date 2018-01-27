@@ -4,9 +4,9 @@
   "description": "Simple store frontend using angular",
   "main": "index.js",
   "scripts": {
-    "postinstall": "bower install",
-    "prestart": "npm install",
-    "start": "http-server -a localhost -p 8000 app"
+    "run-postinstall": "bower install",
+    "run-install": "npm install",
+    "start": "http-server -a 127.0.0.1 -p 8000 -c-1 app"
   },
   "repository": {
     "type": "git",

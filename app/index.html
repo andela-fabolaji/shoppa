@@ -1,14 +1,23 @@
-<html ng-app>
+<html ng-app="shoppa">
   <head>
     <title></title>
     <link rel="stylesheet" href="bower_components/tether/dist/css/tether.min.css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-  </head>
-  <body>
-    <div>{{5+5}}</div>
+    
+    <!-- angular -->
     <script src="bower_components/angular/angular.min.js"></script>
+    <script src="app.js"></script>
+    
+    <!-- bootstrap -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/tether/dist/js/tether.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div ng-controller="ShopController as shop">
+      <h3>{{shop.products[0].name}}</h3>
+      <p>{{shop.products[0].desc}}</p>
+      <h3>{{shop.products[0].price | currency}}</h3>
+    </div>
   </body>
 </html>
