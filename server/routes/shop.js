@@ -1,12 +1,18 @@
-const express = require('express');
-const router = express.Router();
-
-router.route('/')
-  .get((req, res) => {
-    res.send({
-      msg: 'shop route active'
+/**
+ * shopRouter() bootstraps routes for shop
+ * 
+ * @param {Object} router
+ * @return {Object} router
+ */
+const shopRouter = router => {
+  router.route('/')
+    .get((req, res) => {
+      res.send({
+        msg: 'shop route handler active'
+      });
     });
-  });
+  
+  return router;
+}
 
-module.exports = router;
-
+module.exports = shopRouter;
