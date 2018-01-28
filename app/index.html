@@ -1,23 +1,25 @@
 <html ng-app="shoppa">
   <head>
     <title></title>
-    <link rel="stylesheet" href="bower_components/tether/dist/css/tether.min.css">
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./bower_components/tether/dist/css/tether.min.css">
+    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <base href="/"></base>
+    <!-- angular Deps-->
+    <script src="./bower_components/angular/angular.min.js"></script>
+    <script src="./bower_components/angular-route/angular-route.min.js"></script>
+    <script src="./bower_components/angular-resource/angular-resource.min.js"></script>
     
-    <!-- angular -->
-    <script src="bower_components/angular/angular.min.js"></script>
-    <script src="app.js"></script>
-    
+    <!-- application scripts -->
+    <script src="./mock/products.js"></script>
+    <script src="./products-catalog/products-catalog.js"></script>
+    <script src="./app.js"></script>
+
     <!-- bootstrap -->
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/tether/dist/js/tether.min.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="./bower_components/tether/dist/js/tether.min.js"></script>
+    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   </head>
   <body>
-    <div ng-controller="ShopController as shop">
-      <h3>{{shop.products[0].name}}</h3>
-      <p>{{shop.products[0].desc}}</p>
-      <h3>{{shop.products[0].price | currency}}</h3>
-    </div>
+    <div ng-view></div>
   </body>
 </html>
