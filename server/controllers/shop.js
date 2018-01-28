@@ -1,36 +1,29 @@
-const Schema = require('../db/schemas/user');
 /**
  * @class
- * @classdesc user controller
+ * @classdesc shop controller
  */
-class User {
-
-  constructor(schema, ctx) {
-    super(schema, 'user');
-  }
+class Shop {
 
   /**
-   * create() creates new user
-   * 
+   * create() creates new shop
    * @param {Object} req 
    * @param {Object} res 
    */
-  create(req, res) {
+  static create(req, res) {
     res.status(201).json({
       name: 'John Doe'
     });
   }
 
   /**
-   * getAll() gets all users from db
-   * 
+   * getAll()
    * @param {Object} req 
    * @param {Object} res 
    */
-  getAll(req, res) {
+  static getAll(req, res) {
     res.status(200).json({
       data: [
-        { 
+        {
           name: 'Daniella Winter'
         },
         {
@@ -43,13 +36,8 @@ class User {
     });
   }
 
-  /**
-   * getOne() gets one user object from db
-   * 
-   * @param {Object} req 
-   * @param {Object} res 
-   */
-  getOne(req, res) {
+  static getOne(req, res) {
+    console.log(req.params);
     res.status(200 ).json({
       data: {
         name: 'John Doe'
@@ -58,4 +46,4 @@ class User {
   }
 }
 
-module.exports = new User(Schema);
+module.exports = User;

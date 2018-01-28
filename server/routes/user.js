@@ -18,7 +18,7 @@ const User = require('../controllers/user');
  */
 
 /**
- * userRouter() bootstraps routes for shop
+ * userRouter() manages user routes
  * 
  * @param {Object} router
  * @return {Object} router

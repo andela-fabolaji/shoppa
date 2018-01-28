@@ -5,9 +5,13 @@ const dbUri = process.env.DB_URI;
 
 /**
  * @class
- * @classdesc db class
+ * @classdesc handles database connections
  */
 class Db {
+
+  /**
+   * creates db connection
+   */
   static connect() {
     return mongoose.createConnection(dbUri, {
       socketTimeoutMS: 5000,

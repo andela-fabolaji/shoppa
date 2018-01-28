@@ -2,7 +2,18 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema();
 
 const userSchema = new Schema({
-  firstname: String,
+  firstname: {
+    type: String,
+    validate: {
+      validator: (v) => {
+        return new Promise(resolve => {
+          resolve(/[a-zA-Z]+/.test(v));
+        });
+      },
+      message: 'first name can only contain characters'
+    },
+    required: [true, 'first name is required']
+  },
   lastname: String,
   email: String,
   password: String,

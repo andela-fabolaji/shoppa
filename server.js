@@ -42,7 +42,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/index.html'));
 });
 
-// app.all('*', (req, res) => res.sendStatus(404));
+app.all('*', (req, res) => res.sendStatus(404));
 
 // serve
 app.listen(port, err => {

@@ -1,5 +1,5 @@
 /**
- * shopRouter() bootstraps routes for shop
+ * shopRouter() manages shop routes
  * 
  * @param {Object} router
  * @return {Object} router
