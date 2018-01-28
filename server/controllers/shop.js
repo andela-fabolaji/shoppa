@@ -1,49 +1,21 @@
+const BaseController = require('./');
+const Schema = require('../db/schemas/shop');
+
 /**
- * @class
  * @classdesc shop controller
+ * @extends BaseController
  */
-class Shop {
+class Shop extends  BaseController {
 
   /**
-   * create() creates new shop
-   * @param {Object} req 
-   * @param {Object} res 
+   * constructor() creates a Shop instance
+   * 
+   * @param {Object} schema 
+   * @param {String} context 
    */
-  static create(req, res) {
-    res.status(201).json({
-      name: 'John Doe'
-    });
-  }
-
-  /**
-   * getAll()
-   * @param {Object} req 
-   * @param {Object} res 
-   */
-  static getAll(req, res) {
-    res.status(200).json({
-      data: [
-        {
-          name: 'Daniella Winter'
-        },
-        {
-          name: 'Femi Alabi'
-        },
-        {
-          name: 'Chisom Amaru'
-        }
-      ]
-    });
-  }
-
-  static getOne(req, res) {
-    console.log(req.params);
-    res.status(200 ).json({
-      data: {
-        name: 'John Doe'
-      }
-    });
+  constructor(schema, context) {
+    super(schema, 'shop');
   }
 }
 
-module.exports = User;
+module.exports = new User(Schema);

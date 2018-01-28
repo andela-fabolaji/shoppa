@@ -6,22 +6,49 @@ const userSchema = new Schema({
     type: String,
     validate: {
       validator: (v) => {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
           resolve(/[a-zA-Z]+/.test(v));
         });
       },
-      message: 'first name can only contain characters'
+      message: 'name can only contain alphabets'
     },
     required: [true, 'first name is required']
   },
-  lastname: String,
-  email: String,
-  password: String,
-  createdAt: {
-    type: Date,
-    default: Date.now
+  lastname: {
+    type: String,
+    validate: {
+      validator: (v) => {
+        return new Promise((resolve) => {
+          resolve(/[a-zA-Z]+/.test(v));
+        });
+      },
+      message: 'name can only contain alphabets'
+    },
+    required: [true, 'last name is required']
   },
-  updatedAt: Date,
+  email: {
+    type: String,
+    validate: {
+      validator: (v) => {
+        return new Promise((resolve) => {
+          resolve(/[a-zA-Z]+/.test(v));
+        });
+      },
+      message: 'incorrect email format'
+    },
+    required: [true, 'email is required']
+  },
+  password: {
+    type: String,
+    required: [true, 'first name is required']
+  },
+  timeStamps: {
+    createdAt: {
+      type: Date,
+      default: Date.now
+    },
+    updatedAt: Date,
+  },
   imgUrl: String,
   isVerified: {
     type: Boolean,

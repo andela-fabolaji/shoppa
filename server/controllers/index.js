@@ -1,16 +1,33 @@
 /**
- * @class BaseController
  * @classdesc extensible CRUD class
  */
 class BaseController {
-  constructor(schema, ctx) {
+  
+  /**
+   * constructor() creates a new BaseController instance
+   * 
+   * @param {Object} schema 
+   * @param {String} context
+   */
+  constructor(schema, context) {
     this.schema = schema;
-    this.ctx = ctx;
+    this.context = context;
+  }
+
+  /**
+   * create() creates a new record
+   * 
+   * @param {Object} req 
+   * @param {Object} res 
+   */
+  create(req, res) {
+    res.status(200).json({
+      msg: 'get all'
+    });
   }
   
   /**
-   * getAll() gets all data for a particular
-   * context
+   * getAll() returns all data for a collection
    * 
    * @param {Object} req 
    * @param {Object} res 
@@ -22,8 +39,7 @@ class BaseController {
   }
 
   /**
-   * getById() gets all data for a particular
-   * context
+   * getById() returns an entry from a collection
    * 
    * @param {Object} req 
    * @param {Object} res 
