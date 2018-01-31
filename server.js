@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const path = require('path');
 const socket = require('socket.io');
 const fs = require('fs');
+const mongoose = require('mongoose');
 
 // modules
 const appRoutes = require('./server/routes');
@@ -23,11 +24,7 @@ const env = process.env.NODE_ENV;
 const port = process.env.PORT;
 
 // db instance
-Db
-  .connect()
-  .then((dbInstance) => {
-    console.log('Connection established');
-  });
+Db.connect();
 
 // middleware
 app.use(morgan('dev'));

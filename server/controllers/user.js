@@ -1,21 +1,20 @@
 const BaseController = require('./');
-const Schema = require('../db/schemas/user');
+const UserModel = require('../db/schemas/user');
 
 /**
  * @classdesc user controller
  * @extends BaseController
  */
-class User extends  BaseController {
+class User extends BaseController {
 
   /**
    * constructor() creates a new User instance
    * 
-   * @param {Object} schema 
-   * @param {String} context 
+   * @param {Object} model 
    */
-  constructor(schema, context) {
-    super(schema, 'user');
+  constructor(model) {
+    super(model, 'user');
   }
 }
 
-module.exports = new User(Schema);
+module.exports = new User(UserModel);

@@ -1,3 +1,5 @@
+const Shop = require('../controllers/shop');
+
 /**
  * shopRouter() manages shop routes
  * 
@@ -6,11 +8,7 @@
  */
 const shopRouter = router => {
   router.route('/')
-    .get((req, res) => {
-      res.send({
-        msg: 'shop route handler active'
-      });
-    });
+    .get(Shop.getAll);
   
   return router;
 }

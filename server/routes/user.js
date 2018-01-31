@@ -1,4 +1,5 @@
-const User = require('../controllers/user');
+const user = require('../controllers/user');
+
 /**
  * GET
  * /
@@ -25,11 +26,11 @@ const User = require('../controllers/user');
  */
 const userRouter = router => {
   router.route('/')
-    .get(User.getAll)
-    .post(User.create)
+    .get(user.getAll)
+    .post(user.create)
   
   router.route('/:userId')
-    .get(User.getOne)
+    .get(user.getById)
   
   return router;
 }

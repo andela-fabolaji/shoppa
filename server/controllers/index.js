@@ -9,9 +9,12 @@ class BaseController {
    * @param {Object} schema 
    * @param {String} context
    */
-  constructor(schema, context) {
-    this.schema = schema;
+  constructor(model, context) {
+    this.model = model;
     this.context = context;
+    this.create = this.create.bind(this);
+    this.getAll = this.getAll.bind(this);
+    this.getById = this.getById.bind(this);
   }
 
   /**
@@ -20,10 +23,21 @@ class BaseController {
    * @param {Object} req 
    * @param {Object} res 
    */
-  create(req, res) {
-    res.status(200).json({
-      msg: 'get all'
-    });
+  async create(req, res) {
+    const resource = new this.model(req.body);
+
+    try {
+      const savedResource = await resource.save();
+      res.status(201).json({
+        data: savedResource
+      });
+    } catch(err) {
+      res.status(500).json({
+        error: {
+          message: `unable to create ${this.context}`
+        }
+      });
+    }
   }
   
   /**
@@ -50,3 +64,5 @@ class BaseController {
     });
   }
 }
+
+module.exports = BaseController;

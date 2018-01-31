@@ -1,14 +1,11 @@
-angular.module('catalog', [])
-  .controller('ProductsController', ['$scope', '$http', function($scope, $http) {
+angular.module('products-catalog', [])
+  .controller('ProductsCatalogController', ['$http', function($http) {
+    var catalog = this;
 
-    this.products = products;
+    catalog.products = products;
 
-    $http.get('/shop')
+    $http.get('/shops')
       .then(res => {
         console.log(res);
       });
-
-    this.getNumProducts = function() {
-      return products.length;
-    };
   }]);

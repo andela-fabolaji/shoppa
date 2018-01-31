@@ -1,21 +1,20 @@
 const BaseController = require('./');
-const Schema = require('../db/schemas/shop');
+const ShopModel = require('../db/schemas/shop');
 
 /**
  * @classdesc shop controller
  * @extends BaseController
  */
-class Shop extends  BaseController {
+class Shop extends BaseController {
 
   /**
    * constructor() creates a Shop instance
    * 
-   * @param {Object} schema 
-   * @param {String} context 
+   * @param {Object} model 
    */
-  constructor(schema, context) {
-    super(schema, 'shop');
+  constructor(model) {
+    super(model, 'shop');
   }
 }
 
-module.exports = new User(Schema);
+module.exports = new Shop(ShopModel);
