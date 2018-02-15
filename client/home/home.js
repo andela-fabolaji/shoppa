@@ -1,4 +1,6 @@
 angular.module('home', [])
-  .controller('HomeController', [function() {
+  .controller('HomeController', ['AuthFactory' ,'$window', function($window, AuthFactory) {
     const home = this;
-  }])
+
+    console.log(AuthFactory.start());
+  }]);

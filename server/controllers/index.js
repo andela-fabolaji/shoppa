@@ -34,7 +34,8 @@ class BaseController {
     } catch(err) {
       res.status(500).json({
         error: {
-          message: `unable to create ${this.context}`
+          title: '',
+          detail: `unable to create ${this.context}`
         }
       });
     }
@@ -48,7 +49,10 @@ class BaseController {
    */
   getAll(req, res) {
     res.status(200).json({
-      msg: 'get all'
+      data: {
+        message: 'success',
+        list: []
+      }
     });
   }
 

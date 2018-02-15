@@ -1,8 +1,8 @@
 // main deps
 const dotenv = require('dotenv');
 const express = require('express');
-const http = require('http');
 const bodyParser = require('body-parser');
+const http = require('http');
 const morgan = require('morgan');
 const path = require('path');
 const socket = require('socket.io');

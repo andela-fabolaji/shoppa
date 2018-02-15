@@ -1,4 +1,4 @@
-const Shop = require('../controllers/shop');
+const Shop = require('../controllers/shop/shop');
 
 /**
  * shopRouter() manages shop routes
