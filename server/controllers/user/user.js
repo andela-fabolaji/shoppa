@@ -1,5 +1,5 @@
-const BaseController = require('./');
-const UserModel = require('../db/schemas/user');
+const BaseController = require('../');
+const UserModel = require('../../db/schemas/user');
 
 /**
  * @classdesc user controller

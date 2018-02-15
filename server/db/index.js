@@ -1,6 +1,8 @@
 require('dotenv').config({ silent: true });
 
 const mongoose = require('mongoose');
+const connError = require('../exceptions/conn.error');
+
 const dbUri = process.env.DB_URI;
 const options = {
   useMongoClient: true,
@@ -21,9 +23,9 @@ class Db {
     mongoose.connect(dbUri, options);
     const db = mongoose.connection;
 
-    db.on('error', console.error.bind(console, 'Connection Failed:'));
+    db.on('error', connError.handler);
     db.once('open', function() {
-      console.log('Connection Established');
+      console.info('Connection Established');
     });
   }
 }
