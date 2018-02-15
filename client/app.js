@@ -5,6 +5,21 @@ angular.module('shoppa', [
   'home',
   'products-catalog'
 ])
+.value('CLIENT_ID', '559633011777-sro43h0pgdpf7plh30of69cujdf4p2q4.apps.googleusercontent.com')
+.value('SECRET', 'nuLa2kecH7B3o3b3-TvZ6ma6')
+.factory('AuthFactory', function($http, CLIENT_ID) {
+  return {
+    start: function() {
+      return gapi;
+    },
+    googleAuth: function() {
+      return $http.get('/shops');
+    },
+    auth: function(userData) {
+      return $http.post('/users', userData);
+    }
+  };
+})
 .config(function($routeProvider, $locationProvider) {
   $routeProvider
     .when('/', {

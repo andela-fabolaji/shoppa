@@ -1,5 +1,5 @@
-const BaseController = require('./');
-const ShopModel = require('../db/schemas/shop');
+const BaseController = require('../');
+const ShopModel = require('../../db/schemas/shop');
 
 /**
  * @classdesc shop controller
