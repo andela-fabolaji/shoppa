@@ -13,8 +13,9 @@ class BaseController {
     this.model = model;
     this.context = context;
     this.create = this.create.bind(this);
-    this.getAll = this.getAll.bind(this);
-    this.getById = this.getById.bind(this);
+    this.findAll = this.findAll.bind(this);
+    this.findOne = this.findOne.bind(this);
+    this.findById = this.findById.bind(this);
   }
 
   /**
@@ -47,7 +48,7 @@ class BaseController {
    * @param {Object} req 
    * @param {Object} res 
    */
-  getAll(req, res) {
+  findAll(req, res) {
     res.status(200).json({
       data: {
         message: 'success',
@@ -56,17 +57,23 @@ class BaseController {
     });
   }
 
+  async findOne(req, res) {
+    try {
+      const resource = this.model.findOne(req.query).exec();
+      return resource;
+    } catch (err) {
+      res.send(err);
+    }
+  }
+
   /**
    * getById() returns an entry from a collection
    * 
    * @param {Object} req 
    * @param {Object} res 
    */
-  getById(req, res) {
-    res.status(200).json({
-      msg: 'get by id'
-    });
+  async findById(req, res) {
   }
 }
 
-module.exports = BaseController;
+export default BaseController;

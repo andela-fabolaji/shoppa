@@ -1,5 +1,5 @@
-const BaseController = require('../');
-const ShopModel = require('../../db/schemas/shop');
+import BaseController from '../';
+import ShopModel from '../../db/schemas/shop';
 
 /**
  * @classdesc shop controller
@@ -17,4 +17,4 @@ class Shop extends BaseController {
   }
 }
 
-module.exports = new Shop(ShopModel);
+export default new Shop(ShopModel);

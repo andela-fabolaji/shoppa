@@ -1,4 +1,5 @@
-const user = require('../controllers/user/user');
+import user from '../controllers/user/user';
+import Validator from '../middleware/validation';
 
 /**
  * GET
@@ -26,13 +27,15 @@ const user = require('../controllers/user/user');
  */
 const userRouter = router => {
   router.route('/')
-    .get(user.getAll)
-    .post(user.create)
+    .get(user.findAll)
+    .post(Validator.signup(), user.signup);
+  
+  router.post('/login', Validator.login(), user.login)
   
   router.route('/:userId')
-    .get(user.getById)
+    .get(user.findById)
   
   return router;
 }
 
-module.exports = userRouter;
+export default userRouter;

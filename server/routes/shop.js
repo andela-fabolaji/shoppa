@@ -1,4 +1,4 @@
-const Shop = require('../controllers/shop/shop');
+import Shop from '../controllers/shop/shop';
 
 /**
  * shopRouter() manages shop routes
@@ -8,9 +8,9 @@ const Shop = require('../controllers/shop/shop');
  */
 const shopRouter = router => {
   router.route('/')
-    .get(Shop.getAll);
+    .get(Shop.findAll);
   
   return router;
 }
 
-module.exports = shopRouter;
+export default shopRouter;

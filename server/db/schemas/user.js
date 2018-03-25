@@ -1,4 +1,10 @@
-const mongoose = require('mongoose');
+import mongoose, { mongo } from 'mongoose';
+import es6Promise from 'es6-promise';
+import { emailSchema, timeStampSchema } from '../sub-schemas'
+
+mongoose.Promise = es6Promise.Promise;
+es6Promise.polyfill();
+
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -28,29 +34,12 @@ const userSchema = new Schema({
     type: Boolean,
     default: 1
   },
-  email: {
-    type: String,
-    validate: {
-      validator: (v) => {
-        return new Promise((resolve) => {
-          resolve(/[a-zA-Z]+/.test(v));
-        });
-      },
-      message: 'incorrect email format'
-    },
-    required: [true, 'email is required']
-  },
+  email: emailSchema,
   password: {
     type: String,
     required: [true, 'first name is required']
   },
-  timeStamps: {
-    createdAt: {
-      type: Date,
-      default: Date.now
-    },
-    updatedAt: Date,
-  },
+  timeStamps: timeStampSchema,
   imgUrl: String,
   isVerified: {
     type: Boolean,
@@ -62,4 +51,4 @@ const userSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model('User', userSchema);
+export default mongoose.model('User', userSchema);

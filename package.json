@@ -4,10 +4,10 @@
   "description": "Simple store frontend using angular",
   "main": "index.js",
   "scripts": {
-    "run-postinstall": "bower install",
-    "run-install": "npm install",
-    "start:frontend": "http-server -c-1 ./app",
-    "start": "nodemon ./server"
+    "start:client": "http-server -c-1 ./app",
+    "start": "./start.sh",
+    "clean:dist": "scripts/clean.sh",
+    "build:prod": "npm run clean:dist && babel app --out-dir dist"
   },
   "repository": {
     "type": "git",
@@ -21,15 +21,21 @@
   },
   "homepage": "https://github.com/andela-fabolaji/shoppa#readme",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "bower": "^1.8.2",
     "http-server": "^0.11.1"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
     "dotenv": "^4.0.0",
+    "es6-promise": "^4.2.4",
     "express": "^4.16.2",
+    "express-validation": "^1.0.2",
     "helmet": "^3.11.0",
+    "joi": "^13.1.2",
     "jsonwebtoken": "^8.1.1",
+    "mongodb": "^3.0.3",
     "mongoose": "^4.9.8",
     "morgan": "^1.9.0",
     "nodemon": "^1.14.11",

@@ -1,15 +1,10 @@
-require('dotenv').config({ silent: true });
+import mongoose from 'mongoose';
+import es6Promise from 'es6-promise';
+import { handler } from '../exceptions/conn.error';
+import config from './config';
 
-const mongoose = require('mongoose');
-const connError = require('../exceptions/conn.error');
-
-const dbUri = process.env.DB_URI;
-const options = {
-  useMongoClient: true,
-  socketTimeoutMS: 0,
-  keepAlive: true,
-  reconnectTries: 30
-};
+mongoose.Promise = es6Promise.Promise;
+es6Promise.polyfill();
 
 /**
  * @classdesc handles database connections
@@ -20,14 +15,14 @@ class Db {
    * creates db connection
    */
   static connect() {
-    mongoose.connect(dbUri, options);
+    mongoose.connect(`${config.uri}/${config.name}`, config.options);
     const db = mongoose.connection;
 
-    db.on('error', connError.handler);
+    db.on('error', handler);
     db.once('open', function() {
       console.info('Connection Established');
     });
   }
 }
 
-module.exports = Db;
+export default Db;
