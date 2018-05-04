@@ -27,12 +27,12 @@ jobs:
           - v1-dependencies-
 
       - run:
-        name: install deps
-        command: npm install
+          name: install deps
+          command: npm install
 
       - run:
-        name: install test reporter
-        command: npm install -g codeclimate-test-reporter
+          name: install test reporter
+          command: npm install -g codeclimate-test-reporter
 
       - save_cache:
           paths:
