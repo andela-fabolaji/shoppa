@@ -1,11 +1,10 @@
-import mongoose, { mongo } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import es6Promise from 'es6-promise';
-import { emailSchema, timeStampSchema } from '../sub-schemas'
+import bcrypt from 'bcrypt';
+import { emailSchema, timeStampSchema, addressSchema } from '../sub-schemas';
 
 mongoose.Promise = es6Promise.Promise;
 es6Promise.polyfill();
-
-const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   firstname: {
@@ -21,9 +20,9 @@ const userSchema = new Schema({
   lastname: {
     type: String,
     validate: {
-      validator: (v) => {
+      validator: (field) => {
         return new Promise((resolve) => {
-          resolve(/[a-zA-Z]+/.test(v));
+          resolve(/[a-zA-Z]+/.test(field));
         });
       },
       message: 'name can only contain alphabets'
@@ -34,10 +33,21 @@ const userSchema = new Schema({
     type: Boolean,
     default: 1
   },
-  email: emailSchema,
+  email: {
+    type: String,
+    validate: {
+      validator: (field) => {
+        return new Promise((resolve) => {
+          resolve(/^[a-z0-9_.]+@[a-z]+\.[a-z]+$/i.test(field));
+        });
+      },
+      message: 'Invalid email format'
+    },
+    unique: true
+  },
   password: {
     type: String,
-    required: [true, 'first name is required']
+    min: [8, 'password cannot be less than 8 characters'],
   },
   timeStamps: timeStampSchema,
   imgUrl: String,
@@ -48,7 +58,23 @@ const userSchema = new Schema({
   isActive: {
     type: Boolean,
     default: false
+  },
+  permissions: {
+    type: [Schema.Types.ObjectId],
+    default: []
+  },
+  address: {
+    type: [addressSchema],
+    default: []
   }
 });
+
+userSchema.pre('save', async function (next) {
+  const user = this;
+
+  if (!user.isModified('password')) return next();
+  user.password = await bcrypt.hash(user.password, 10);
+  next();
+}); 
 
 export default mongoose.model('User', userSchema);

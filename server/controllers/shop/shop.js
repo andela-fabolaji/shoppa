@@ -6,11 +6,10 @@ import ShopModel from '../../db/schemas/shop';
  * @extends BaseController
  */
 class Shop extends BaseController {
-
   /**
    * constructor() creates a Shop instance
-   * 
-   * @param {Object} model 
+   *
+   * @param {Object} model
    */
   constructor(model) {
     super(model, 'shop');

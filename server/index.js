@@ -7,6 +7,7 @@ import morgan from 'morgan';
 import path from 'path';
 import socket from 'socket.io';
 import mongodb from 'mongodb';
+import validate from 'express-validation';
 
 // modules
 import appRoutes from './routes';

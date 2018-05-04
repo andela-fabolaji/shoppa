@@ -1,5 +1,6 @@
 import BaseController from '../';
 import UserModel from '../../db/schemas/user';
+import asyncWrapper from '../../lib/asyncWrapper';
 
 /**
  * @classdesc user controller
@@ -14,10 +15,12 @@ class User extends BaseController {
    */
   constructor(model) {
     super(model, 'user');
+    this.signup =  this.signup.bind(this);
+    this.login = this.login.bind(this);
   }
 
   signup(req, res) {
-    return super.create(req, res);
+    super.create(req, res);
   }
 
   login(req, res) {

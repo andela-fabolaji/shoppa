@@ -2,11 +2,10 @@
  * @classdesc extensible CRUD class
  */
 class BaseController {
-  
   /**
    * constructor() creates a new BaseController instance
-   * 
-   * @param {Object} schema 
+   *
+   * @param {Object} model
    * @param {String} context
    */
   constructor(model, context) {
@@ -20,9 +19,10 @@ class BaseController {
 
   /**
    * create() creates a new record
-   * 
-   * @param {Object} req 
-   * @param {Object} res 
+   *
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Null} - no return value
    */
   async create(req, res) {
     const resource = new this.model(req.body);
@@ -32,21 +32,21 @@ class BaseController {
       res.status(201).json({
         data: savedResource
       });
-    } catch(err) {
+    } catch (err) {
       res.status(500).json({
-        error: {
-          title: '',
-          detail: `unable to create ${this.context}`
-        }
+        status: 500,
+        title: `unable to create ${this.context}`,
+        detail: []
       });
     }
   }
-  
+
   /**
    * getAll() returns all data for a collection
-   * 
-   * @param {Object} req 
-   * @param {Object} res 
+   *
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Null} - no return value
    */
   findAll(req, res) {
     res.status(200).json({
@@ -57,6 +57,13 @@ class BaseController {
     });
   }
 
+  /**
+   * getAll() returns all data for a collection
+   *
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Null} - no return value
+   */
   async findOne(req, res) {
     try {
       const resource = this.model.findOne(req.query).exec();
@@ -64,15 +71,6 @@ class BaseController {
     } catch (err) {
       res.send(err);
     }
-  }
-
-  /**
-   * getById() returns an entry from a collection
-   * 
-   * @param {Object} req 
-   * @param {Object} res 
-   */
-  async findById(req, res) {
   }
 }
 

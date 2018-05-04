@@ -1,11 +1,9 @@
-import mongoose, { mongo } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import es6Promise from 'es6-promise';
 import { addressSchema, emailSchema, timeStampSchema } from '../sub-schemas'
 
 mongoose.Promise = es6Promise.Promise;
 es6Promise.polyfill();
-
-const Schema = mongoose.Schema;
 
 const shopSchema = new Schema({
   shopname: {
@@ -33,6 +31,9 @@ const shopSchema = new Schema({
   isActive: {
     type: Boolean,
     default: false
+  },
+  userType: {
+    type: [String],
   }
 });
 
