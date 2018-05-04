@@ -1,5 +1,6 @@
-const BaseController = require('../');
-const UserModel = require('../../db/schemas/user');
+import BaseController from '../';
+import UserModel from '../../db/schemas/user';
+import asyncWrapper from '../../lib/asyncWrapper';
 
 /**
  * @classdesc user controller
@@ -14,7 +15,21 @@ class User extends BaseController {
    */
   constructor(model) {
     super(model, 'user');
+    this.signup =  this.signup.bind(this);
+    this.login = this.login.bind(this);
+  }
+
+  signup(req, res) {
+    super.create(req, res);
+  }
+
+  login(req, res) {
+    req.query = {
+      email: req.email
+    };
+
+    return super.findOne(req, res);
   }
 }
 
-module.exports = new User(UserModel);
+export default new User(UserModel);

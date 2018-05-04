@@ -1,5 +1,10 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import mongoose, { Schema } from 'mongoose';
+import es6Promise from 'es6-promise';
+import bcrypt from 'bcrypt';
+import { emailSchema, timeStampSchema, addressSchema } from '../sub-schemas';
+
+mongoose.Promise = es6Promise.Promise;
+es6Promise.polyfill();
 
 const userSchema = new Schema({
   firstname: {
@@ -15,9 +20,9 @@ const userSchema = new Schema({
   lastname: {
     type: String,
     validate: {
-      validator: (v) => {
+      validator: (field) => {
         return new Promise((resolve) => {
-          resolve(/[a-zA-Z]+/.test(v));
+          resolve(/[a-zA-Z]+/.test(field));
         });
       },
       message: 'name can only contain alphabets'
@@ -31,26 +36,20 @@ const userSchema = new Schema({
   email: {
     type: String,
     validate: {
-      validator: (v) => {
+      validator: (field) => {
         return new Promise((resolve) => {
-          resolve(/[a-zA-Z]+/.test(v));
+          resolve(/^[a-z0-9_.]+@[a-z]+\.[a-z]+$/i.test(field));
         });
       },
-      message: 'incorrect email format'
+      message: 'Invalid email format'
     },
-    required: [true, 'email is required']
+    unique: true
   },
   password: {
     type: String,
-    required: [true, 'first name is required']
+    min: [8, 'password cannot be less than 8 characters'],
   },
-  timeStamps: {
-    createdAt: {
-      type: Date,
-      default: Date.now
-    },
-    updatedAt: Date,
-  },
+  timeStamps: timeStampSchema,
   imgUrl: String,
   isVerified: {
     type: Boolean,
@@ -59,7 +58,23 @@ const userSchema = new Schema({
   isActive: {
     type: Boolean,
     default: false
+  },
+  permissions: {
+    type: [Schema.Types.ObjectId],
+    default: []
+  },
+  address: {
+    type: [addressSchema],
+    default: []
   }
 });
 
-module.exports = mongoose.model('User', userSchema);
+userSchema.pre('save', async function (next) {
+  const user = this;
+
+  if (!user.isModified('password')) return next();
+  user.password = await bcrypt.hash(user.password, 10);
+  next();
+}); 
+
+export default mongoose.model('User', userSchema);

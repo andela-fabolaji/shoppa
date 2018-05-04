@@ -1,4 +1,6 @@
-const user = require('../controllers/user/user');
+import user from '../controllers/user/user';
+import Validator from '../middleware/validation';
+// import asyncWrapper from '../lib/asyncWrapper';
 
 /**
  * GET
@@ -7,32 +9,37 @@ const user = require('../controllers/user/user');
  * /:userId/purchases
  * /:userId/cart
  * /:userId/wishList
- * 
+ *
  * POST
  * /
- * 
+ *
  * PUT
  * users/:userId
- * 
+ *
  * DELETE
  * users/:userId
  */
 
 /**
  * userRouter() manages user routes
- * 
+ *
  * @param {Object} router
  * @return {Object} router
  */
-const userRouter = router => {
+const userRouter = (router) => {
   router.route('/')
-    .get(user.getAll)
-    .post(user.create)
-  
-  router.route('/:userId')
-    .get(user.getById)
-  
-  return router;
-}
+    .get(user.findAll)
+    .post(Validator.signup(), user.signup);
 
-module.exports = userRouter;
+  router.post('/login', Validator.login(), user.login);
+
+  router.route('/:userId')
+    .get(user.findById)
+    .put()
+    .patch()
+    .delete();
+
+  return router;
+};
+
+export default userRouter;
