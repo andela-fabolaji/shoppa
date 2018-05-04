@@ -32,7 +32,7 @@ jobs:
 
       - run:
           name: install test reporter
-          command: npm install -g codeclimate-test-reporter
+          command: sudo npm install -g codeclimate-test-reporter
 
       - save_cache:
           paths:
