@@ -1,11 +1,8 @@
-const asyncWrapper = asyncFn => {
-  // return (req, res, next) => {
-  //   Promise.resolve(asyncFn(req, res, next))
-  //     .catch((next));
-  // };
-
+/* eslint-disable */
+const asyncWrapper = (asyncFn) => {
   return (req, res, next) => {
-    asyncFn(req, res);
+    return Promise.resolve(asyncFn(req, res, next))
+      .catch(next(err));
   }
 };
 

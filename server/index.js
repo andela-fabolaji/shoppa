@@ -4,13 +4,11 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import http from 'http';
 import morgan from 'morgan';
-import path from 'path';
 import socket from 'socket.io';
-import mongodb from 'mongodb';
 import validate from 'express-validation';
 
 // modules
-import appRoutes from './routes';
+import mapRoutes from './routes';
 import Db from './db';
 
 // dotenv
@@ -18,34 +16,49 @@ dotenv.config({ silent: true });
 
 // constants
 const app = express();
-const server = http.Server(app);
-const io = socket(server);
+const server = http.createServer(app);
+const io = socket.listen(server);
 const env = process.env.NODE_ENV;
 const port = process.env.PORT;
 
-// db instance -> using the mongodb native api directly
-// const db = Db.classicConnect(mongodb.MongoClient);
-// global.db = db;
-
-// db instace 
+// db instace
 Db.connect();
 
 // middleware
 app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // app.use(express.static('client'));
 
+app.get('/api', (req, res) => {
+  res.status(200).send({ message: 'welcome stranger' });
+});
+
 // route handler
-appRoutes(app);
+Reflect.ownKeys(mapRoutes).forEach((route) => {
+  // for each route, bind a route handler
+  app.use(route, mapRoutes[route]);
+});
 
-// app.get('/', (req, res) => {
-//   res.sendFile('client/index.html');
-// });
+app.all('*', (req, res) => res.status(404).json({ message: 'This route does not exist' }));
 
-app.all('*', (req, res) => res.sendStatus(404));
+// error handler
+app.use((err, req, res, next) => res.status(422).json({
+  status: 422,
+  title: err.statusText,
+  detail: err.errors.map(error => ({
+    field: error.field.join(', '),
+    message: error.messages.join(', '),
+    location: error.location,
+  }))
+}));
 
 // serve
-app.listen(port, err => {
-  !err && console.log(`App served on http://localhost:${port}`);
+server.listen(port, (err) => {
+  /* eslint-disable no-console */
+  if (!err) {
+    console.log(`App served on http://localhost:${port}`);
+  }
 });
+
+export default app;

@@ -1,6 +1,6 @@
 import user from '../controllers/user/user';
 import Validator from '../middleware/validation';
-// import asyncWrapper from '../lib/asyncWrapper';
+import asyncWrapper from '../lib/asyncWrapper';
 
 /**
  * GET
@@ -29,12 +29,12 @@ import Validator from '../middleware/validation';
 const userRouter = (router) => {
   router.route('/')
     .get(user.findAll)
-    .post(Validator.signup(), user.signup);
+    .post(Validator.signup(), asyncWrapper(user.create));
 
   router.post('/login', Validator.login(), user.login);
 
   router.route('/:userId')
-    .get(user.findById)
+    .get()
     .put()
     .patch()
     .delete();
