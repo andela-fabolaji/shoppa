@@ -5,8 +5,6 @@ import { timeStapSchema } from '../sub-schemas';
 mongoose.Promise = es6Promise.Promise;
 es6Promise.polyfill();
 
-var x = 1, y = 2;
-
 const permissionsSchema = new Schema({
   title: '',
   description: '',
