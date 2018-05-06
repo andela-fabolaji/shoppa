@@ -12,4 +12,5 @@ const productSchema = new Schema({
   categoryId: []
 });
 
-export default mongoose.model('Products', productSchema);
+/* eslint-disable */
+export const Product = mongoose.model('Products', productSchema);

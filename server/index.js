@@ -5,10 +5,9 @@ import bodyParser from 'body-parser';
 import http from 'http';
 import morgan from 'morgan';
 import socket from 'socket.io';
-import validate from 'express-validation';
 
 // modules
-import mapRoutes from './routes';
+import { mapRoutes } from './routes';
 import Db from './db';
 
 // dotenv

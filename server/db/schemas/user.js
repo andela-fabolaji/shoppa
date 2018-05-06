@@ -1,7 +1,8 @@
 import mongoose, { Schema } from 'mongoose';
 import es6Promise from 'es6-promise';
 import bcrypt from 'bcrypt';
-import { emailSchema, timeStampSchema, addressSchema } from '../sub-schemas';
+import { timeStampSchema } from '../sub-schemas/timestamp';
+import { addressSchema } from '../sub-schemas/address';
 
 mongoose.Promise = es6Promise.Promise;
 es6Promise.polyfill();
@@ -49,7 +50,7 @@ const userSchema = new Schema({
     type: String,
     min: [8, 'password cannot be less than 8 characters'],
   },
-  timeStamps: timeStampSchema,
+  timestamp: timeStampSchema,
   imgUrl: String,
   isVerified: {
     type: Boolean,
@@ -59,22 +60,23 @@ const userSchema = new Schema({
     type: Boolean,
     default: false
   },
-  permissions: {
-    type: [Schema.Types.ObjectId],
-    default: []
-  },
   address: {
     type: [addressSchema],
     default: []
+  },
+  role: {
+    type: Schema.Types.ObjectId,
+    ref: 'Role'
   }
 });
 
-userSchema.pre('save', async function (next) {
+userSchema.pre('save', async (next) => {
   const user = this;
 
   if (!user.isModified('password')) return next();
   user.password = await bcrypt.hash(user.password, 10);
   next();
-}); 
+});
 
-export default mongoose.model('User', userSchema);
+/* eslint-disable */
+export const User = mongoose.model('User', userSchema);

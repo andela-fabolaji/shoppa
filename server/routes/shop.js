@@ -1,23 +1,16 @@
-import Shop from '../controllers/shop/shop';
+import { shopCtrl } from '../controllers';
 
 /**
- * create shop
- * edit shop details
+ * @description manages shop routes
  *
+ * @param {Object} router - router object
+ * @return {Object} router object
  */
-
-/**
- * shopRouter() manages shop routes
- *
- * @param {Object} router
- * @return {Object} router
- */
-const shopRouter = (router) => {
+export const shopRouter = (router) => {
   router.route('/')
-    .get(Shop.findAll)
+    .get(shopCtrl.findAll)
     .post();
 
   return router;
 };
 
-export default shopRouter;

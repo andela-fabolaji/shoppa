@@ -1,11 +1,11 @@
 import BaseController from '../';
-import ShopModel from '../../db/schemas/shop';
+import { Shop } from '../../db';
 
 /**
  * @classdesc shop controller
  * @extends BaseController
  */
-class Shop extends BaseController {
+class ShopController extends BaseController {
   /**
    * constructor() creates a Shop instance
    *
@@ -16,4 +16,4 @@ class Shop extends BaseController {
   }
 }
 
-export default new Shop(ShopModel);
+export const shopCtrl = new ShopController(Shop);

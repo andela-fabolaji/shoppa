@@ -1,12 +1,11 @@
 import BaseController from '../';
-import UserModel from '../../db/schemas/user';
+import { User } from '../../db';
 
 /**
  * @classdesc user controller
  * @extends BaseController
  */
-class User extends BaseController {
-
+class UserController extends BaseController {
   /**
    * @description creates a new User instance
    *
@@ -44,4 +43,5 @@ class User extends BaseController {
   }
 }
 
-export default new User(UserModel);
+export const userCtrl = new UserController(User);
+

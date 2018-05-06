@@ -1,37 +1,19 @@
-import user from '../controllers/user/user';
+import { userCtrl } from '../controllers';
 import Validator from '../middleware/validation';
 import asyncWrapper from '../lib/asyncWrapper';
 
 /**
- * GET
- * /
- * /:userId
- * /:userId/purchases
- * /:userId/cart
- * /:userId/wishList
+ * @description manages user routes
  *
- * POST
- * /
- *
- * PUT
- * users/:userId
- *
- * DELETE
- * users/:userId
+ * @param {Object} router - router object
+ * @returns {Object} - router object
  */
-
-/**
- * userRouter() manages user routes
- *
- * @param {Object} router
- * @return {Object} router
- */
-const userRouter = (router) => {
+export const userRouter = (router) => {
   router.route('/')
-    .get(user.findAll)
-    .post(Validator.signup(), asyncWrapper(user.create));
+    .get(userCtrl.findAll)
+    .post(Validator.signup(), asyncWrapper(userCtrl.create));
 
-  router.post('/login', Validator.login(), user.login);
+  router.post('/login', Validator.login(), userCtrl.login);
 
   router.route('/:userId')
     .get()
@@ -41,5 +23,3 @@ const userRouter = (router) => {
 
   return router;
 };
-
-export default userRouter;
