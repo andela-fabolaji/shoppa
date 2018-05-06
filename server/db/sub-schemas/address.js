@@ -1,10 +1,11 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import es6Promise from 'es6-promise';
 
 mongoose.Promise = es6Promise.Promise;
 es6Promise.polyfill();
 
-export const addressSchema = new mongoose.Schema({
+/* eslint-disable */
+export const addressSchema = new Schema({
   address: {
     type: String,
     required: [true, 'address is required']

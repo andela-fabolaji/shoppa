@@ -1,6 +1,8 @@
 import mongoose, { Schema } from 'mongoose';
 import es6Promise from 'es6-promise';
-import { addressSchema, emailSchema, timeStampSchema } from '../sub-schemas'
+import { emailSchema } from '../sub-schemas/email';
+import { timeStampSchema } from '../sub-schemas/timestamp';
+import { addressSchema } from '../sub-schemas/address';
 
 mongoose.Promise = es6Promise.Promise;
 es6Promise.polyfill();
@@ -22,7 +24,7 @@ const shopSchema = new Schema({
     type: String,
     required: [true, 'first name is required']
   },
-  timeStamps: timeStampSchema,
+  timestamp: timeStampSchema,
   imgUrl: String,
   isVerified: {
     type: Boolean,
@@ -37,8 +39,5 @@ const shopSchema = new Schema({
   }
 });
 
-class Shop {}
-
-shopSchema.loadClass(Shop);
-
-export default mongoose.model('Shop', shopSchema);
+/* eslint-disable */
+export const Shop = mongoose.model('Shop', shopSchema);
