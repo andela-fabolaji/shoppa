@@ -44,4 +44,3 @@ class UserController extends BaseController {
 }
 
 export const userCtrl = new UserController(User);
-

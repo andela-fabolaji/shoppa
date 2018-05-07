@@ -49,7 +49,7 @@ class BaseController {
 
   /**
    * @description returns all data for a collection
-   * @memberOf BaseController
+   * @memberof BaseController
    *
    * @param {Object} req - request object
    * @param {Object} res - response object
@@ -64,18 +64,12 @@ class BaseController {
       ]
     };
     Response.okay(res, resData);
-    res.status(200).json({
-      data: {
-        message: 'success',
-        list: []
-      }
-    });
   }
 
   /**
    * @description returns single object from collection
    * matching id passed
-   * @memberOf BaseController
+   * @memberof BaseController
    *
    * @param {Object} req - request object
    * @param {Object} res - response object
@@ -97,7 +91,7 @@ class BaseController {
   /**
    * @description returns single object from collection
    * matching query passed
-   * @memberOf BaseController
+   * @memberof BaseController
    *
    * @param {Object} req - request object
    * @param {Object} res - response object

@@ -6,7 +6,7 @@ import { OK, CREATED, NOT_FOUND, DUPLICATE_RES, SERVER_ERR } from './response.co
 class Response {
   /**
    * @description retuns an okay response
-   * @memberOf Response
+   * @memberof Response
    *
    * @param {Object} res - response object
    * @param {Object} resData - response data
@@ -20,7 +20,7 @@ class Response {
 
   /**
    * @description retuns an okay response
-   * @memberOf Response
+   * @memberof Response
    *
    * @param {Object} res - response object
    * @param {Object} resData - response data
@@ -34,7 +34,7 @@ class Response {
 
   /**
    * @description returns a 404 response to client
-   * @memberOf Response
+   * @memberof Response
    *
    * @param {Object} res - response object
    * @param {Object} type - resource type
@@ -48,7 +48,7 @@ class Response {
 
   /**
    * @description returns a duplicate resource response
-   * @memberOf Response
+   * @memberof Response
    *
    * @param {Object} res - response object
    * @param {Object} type - resource type
@@ -62,7 +62,7 @@ class Response {
 
   /**
    * @description retuns server error response
-   * @memberOf Response
+   * @memberof Response
    *
    * @param {Object} res - response object
    * @param {Object} resData - response data

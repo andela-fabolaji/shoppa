@@ -1,10 +1,11 @@
-import { Router } from 'express';
 import { userRouter } from './user';
 import { shopRouter } from './shop';
+import { roleRouter } from './role';
 
-const router = Router();
-
-export const mapRoutes = {
-  '/api/users': userRouter(router),
-  '/api/shops': shopRouter(router),
+const mapRoutes = {
+  '/api/users': userRouter,
+  '/api/shops': shopRouter,
+  '/api/roles': roleRouter
 };
+
+export default mapRoutes;
