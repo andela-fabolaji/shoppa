@@ -5,10 +5,13 @@ import bodyParser from 'body-parser';
 import http from 'http';
 import morgan from 'morgan';
 import socket from 'socket.io';
+import helmet from 'helmet';
+import winston from 'winston';
 
 // modules
-import { mapRoutes } from './routes';
+import mapRoutes from './routes';
 import Db from './db';
+import socketService from './services/socket';
 
 // dotenv
 dotenv.config({ silent: true });
@@ -23,40 +26,40 @@ const port = process.env.PORT;
 // db instace
 Db.connect();
 
+// socket
+socketService(io);
+
 // middleware
+app.use(helmet());
+app.use(helmet.noCache());
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-// app.use(express.static('client'));
 
 app.get('/api', (req, res) => {
   res.status(200).send({ message: 'welcome stranger' });
 });
 
-// route handler
+// map each route to it's handler
 Reflect.ownKeys(mapRoutes).forEach((route) => {
-  // for each route, bind a route handler
-  app.use(route, mapRoutes[route]);
+  app.use(route, mapRoutes[route](express.Router()));
 });
 
 app.all('*', (req, res) => res.status(404).json({ message: 'This route does not exist' }));
 
 // error handler
-app.use((err, req, res, next) => res.status(422).json({
-  status: 422,
-  title: err.statusText,
-  detail: err.errors.map(error => ({
-    field: error.field.join(', '),
-    message: error.messages.join(', '),
-    location: error.location,
-  }))
-}));
+app.use((err, req, res, next) => {
+  res.status(422).json({
+    status: 422,
+    message: 'Something went wrong here',
+    title: err.statusText,
+  });
+});
 
 // serve
 server.listen(port, (err) => {
-  /* eslint-disable no-console */
   if (!err) {
-    console.log(`App served on http://localhost:${port}`);
+    winston.log(`App served on http://localhost:${port} in ${env} mode`);
   }
 });
 

@@ -1,11 +1,9 @@
 import mongoose from 'mongoose';
 import es6Promise from 'es6-promise';
-import { handler } from '../exceptions/conn.error';
+import winston from 'winston';
+import handler from '../exceptions/connection';
 import { devConfig, testConfig, prodConfig } from './config';
-import { Permission } from './';
-import { Role } from './';
-import permissionSeed from './seeds/permissions';
-import roleSeeds from './seeds/role';
+import { run, flush } from '../services/seeder';
 
 mongoose.Promise = es6Promise.Promise;
 es6Promise.polyfill();
@@ -36,10 +34,9 @@ export default class Db {
 
     db.on('error', handler);
     db.once('open', () => {
-      /* eslint-disable no-console */
-      console.info('Connection Established');
-      // Db.clearDb();
-      Db.seed();
+      winston.info('Connection Established');
+      flush(mongoose);
+      run();
     });
   }
 
@@ -63,38 +60,5 @@ export default class Db {
    */
   static connectDev(config) {
     return mongoose.connect(`${config.uri}/${config.name}`, config.options);
-  }
-
-  /**
-   * @description drops database
-   * @memberof Db
-   *
-   * @returns {Object} - mongoose connection
-   */
-  static clearDb() {
-    return mongoose.connection.db.dropDatabase();
-  }
-
-  /**
-   * @description seeds database
-   * @memberof Db
-   *
-   * @returns {Object} - mongoose connection
-   */
-  static seed() {
-    // permissionSeed.forEach((seed) => {
-    //   const newPermission = new Permission(seed);
-    //   newPermission.save((err) => {
-    //     if (err) throw err;
-    //     console.log('saved');
-    //   });
-    // });
-
-    roleSeeds.forEach((seed) => {
-      const newRole = new Role(seed);
-      newRole.save((err) => {
-        if (err) throw err;
-      });
-    });
   }
 }

@@ -6,14 +6,9 @@ mongoose.Promise = es6Promise.Promise;
 es6Promise.polyfill();
 
 const permissionsSchema = new Schema({
-  title: {
+  _id: {
     type: String,
-    validate: {
-      validator: value => /[a-zA-Z]+/.test(value),
-      message: 'Title can only be alphabets'
-    },
-    unique: [true, 'This role already exists'],
-    required: [true, 'Permission title is required']
+    required: [true, 'please supply a valid id']
   },
   description: {
     type: String,

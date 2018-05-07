@@ -9,23 +9,18 @@ es6Promise.polyfill();
  * role types: admin, buyer, vendor, shopadmin
  */
 const roleSchema = new Schema({
-  title: {
+  _id: {
     type: String,
-    validate: {
-      validator: value => /[a-zA-Z]+/.test(value),
-      message: 'Title can only be alphabets'
-    },
-    unique: [true, 'This role already exists'],
-    required: [true, 'Role title is required']
+    required: [true, 'Please provide role id.']
   },
   description: {
     type: String,
   },
   permissions: [{
-    type: Schema.Types.ObjectId,
+    type: String,
     ref: 'Permission'
   }],
-  timestamp: timeStampSchema,
+  timestamp: timeStampSchema
 });
 
 /* eslint-disable */
